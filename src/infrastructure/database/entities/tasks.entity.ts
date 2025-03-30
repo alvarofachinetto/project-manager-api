@@ -18,6 +18,7 @@ export class TasksEntity implements ITask {
     status: "pending" | "completed";
 
     @ManyToOne(() => ProjectEntity, (project) => project.tasks, { cascade: true, nullable: false })
+    @JoinColumn()
     project: IProject;
 
     @ManyToOne(() => UserEntity, (user) => user.tasks)

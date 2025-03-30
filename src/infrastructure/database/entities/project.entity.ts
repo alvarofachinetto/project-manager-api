@@ -2,7 +2,7 @@ import { IProject } from 'src/domain/interfaces/project.interface';
 import { ITask } from 'src/domain/interfaces/task.interface';
 import { IUser } from 'src/domain/interfaces/user.interface';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { TasksEntity } from './task.entity';
+import { TasksEntity } from './tasks.entity';
 import { UserEntity } from './user.entity';
 
 @Entity('project')

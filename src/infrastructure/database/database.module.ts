@@ -16,14 +16,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
   ],
   providers: [
+    TasksRepositoryService,
     ProjectsRepositoryService,
-    UsersRepositoryService,
-    TasksRepositoryService
+    UsersRepositoryService
   ],
   exports: [
+    TasksRepositoryService,
     ProjectsRepositoryService,
-    UsersRepositoryService,
-    TasksRepositoryService
+    UsersRepositoryService
   ],
 })
 export class DatabaseModule {}

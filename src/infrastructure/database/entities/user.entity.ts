@@ -1,7 +1,7 @@
 import { IUser } from 'src/domain/interfaces/user.interface';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { ProjectEntity } from './project.entity';
-import { TasksEntity } from './task.entity';
+import { TasksEntity } from './tasks.entity';
 import { IProject } from 'src/domain/interfaces/project.interface';
 import { ITask } from 'src/domain/interfaces/task.interface';
 

@@ -1,30 +1,31 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource, DeepPartial, EntityRepository, Repository } from 'typeorm';
-import { TasksEntity } from '../entities/task.entity';
+import { DataSource, DeepPartial, Repository } from 'typeorm';
+import { TasksEntity } from '../entities/tasks.entity';
 import { ITask } from 'src/domain/interfaces/task.interface';
 import { ITasksRepository } from 'src/domain/repositories/tasks-repository.interface';
 
 Injectable()
-export class TasksRepositoryService extends Repository<TasksEntity> implements ITasksRepository{
+export class TasksRepositoryService implements ITasksRepository{
+
+    private readonly taskRepository: Repository<TasksEntity>;
     
-    
-    constructor(private datasource: DataSource) {
-        super(TasksEntity, datasource.createEntityManager());
+    constructor(datasource: DataSource) {
+        //  this.taskRepository = datasource.getRepository(TasksEntity);
     }
 
     findAll(userId: number): Promise<ITask[]> {
-        return this.findBy({ user: { id: userId } });
+        return this.taskRepository.findBy({ user: { id: userId } });
     }
 
     findById(id: number): Promise<ITask | null> {
-        return this.findOneBy({ id });
+        return this.taskRepository.findOneBy({ id });
     }
     
     add(payload: DeepPartial<ITask>): Promise<ITask> {
-        return this.save(payload) as Promise<ITask>;
+        return this.taskRepository.save(payload) as Promise<ITask>;
     }
     
     updateById(payload: DeepPartial<ITask>) {
-        return this.update(payload.id as number, payload);
+        return this.taskRepository.update(payload.id as number, payload);
     }
 }

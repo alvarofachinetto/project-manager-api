@@ -9,7 +9,6 @@ export class ProjectsRepositoryService extends Repository<ProjectEntity> impleme
 
     constructor(private dataSource: DataSource) {
         super(ProjectEntity, dataSource.createEntityManager());
-
     }
 
     findAll(userId: number): Promise<IProject[]> {

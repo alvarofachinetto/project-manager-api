@@ -4,13 +4,13 @@ import { TasksEntity } from '../entities/tasks.entity';
 import { ITask } from 'src/domain/interfaces/task.interface';
 import { ITasksRepository } from 'src/domain/repositories/tasks-repository.interface';
 
-Injectable()
+@Injectable()
 export class TasksRepositoryService implements ITasksRepository{
 
     private readonly taskRepository: Repository<TasksEntity>;
     
     constructor(datasource: DataSource) {
-        //  this.taskRepository = datasource.getRepository(TasksEntity);
+         this.taskRepository = datasource.getRepository(TasksEntity);
     }
 
     findAll(userId: number): Promise<ITask[]> {

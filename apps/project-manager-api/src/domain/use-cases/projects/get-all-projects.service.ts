@@ -1,10 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { IProject } from '@project-manager-api/domain/interfaces/project.interface';
+import { BaseUseCase } from '../base-use-case';
 import { ProjectsRepositoryService } from '@project-manager-api/infrastructure/database/repositories/projects.repository.service';
+import { IProject } from '@project-manager-api/domain/interfaces/project.interface';
 import { UsersRepositoryService } from '@project-manager-api/infrastructure/database/repositories/users.repository.service';
 
 @Injectable()
-export class GetProjectByIdService {
+export class GetAllProjectsService implements BaseUseCase {
+
     constructor(
 
         private readonly usersRepository: UsersRepositoryService,
@@ -13,14 +15,11 @@ export class GetProjectByIdService {
 
     ) {}
 
-    async execute(payload: {
-        userId: number;
-        projectId: number;
-    }): Promise<IProject> {
+    async execute(userId: number): Promise<IProject[]> {
 
         // fetch user data
 
-        const userData = await this.usersRepository.findById(payload.userId);
+        const userData = await this.usersRepository.findById(userId);
 
         if (!userData) {
 
@@ -28,17 +27,15 @@ export class GetProjectByIdService {
 
         }
 
-        const project = await
+        const projects = await this.projectsRepository.findAll(userId);
 
-        this.projectsRepository.findById(payload.projectId);
-
-        if (!project) {
+        if (!projects) {
 
             throw new Error('Erro ao recuperar projetos');
 
         }
 
-        return project;
+        return projects;
 
     }
 }
